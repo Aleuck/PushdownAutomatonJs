@@ -1,0 +1,236 @@
+body {
+	background: #222;
+	color: #b0b9c0;
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+* {
+	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+}
+footer {
+	color: #666;
+	font-size: 0.8em;
+	text-align: center;
+	margin-top: 30px;
+	padding: 5px;
+}
+footer p {
+	margin: 5px;
+}
+footer a {
+	border-bottom: 1px dashed #eee;
+	color: #aaa;
+	text-decoration: none;
+}
+input {
+	background: #BBB;
+	border: 0px none;
+	border-radius: 4px;
+	color: #000;
+	font-size: 1em;
+	margin: 0;
+	padding: 2px 3px;
+}
+button {
+	background: #1E5910;
+	color: #99D18E;
+	border: 0px none;
+	border-radius: 4px;
+	font-size: 1em;
+	margin: 0;
+	padding: 1px 2px;
+}
+select {
+	background: #444;
+	border: 0px none;
+	border-radius: 3px;
+	color: #ddd;
+	font-size: 1em;
+}
+button.delete {	
+	background: #56100F;
+	color: #CE8D8C;
+}
+#machine_definitions {
+	background: #000;
+	margin-bottom: 15px;
+	padding: 15px;
+}
+#machine_definitions h1 {
+	font-size: 1.2em;
+	margin: 0;
+	padding: 0;
+}
+#machine_definitions ul {
+	list-style: none;
+	display: block;
+	background: #000;
+	margin: 0px;
+	padding: 0px;
+}
+ul.definitions {
+	display: inline-block;
+	float: left;
+	width: 50%;
+}
+ul.definitions li {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+#stacks_management {
+	font-size: 25px;
+	text-align: center;
+}
+input#stacks_number {
+	width: 3em;
+}
+ul#queuestacks_list {
+	display: block;
+	float: right;
+	list-style: none;
+	margin: 5px;
+	padding: 0;
+}
+ul#queuestacks_list > li,
+#alphabets_management {
+	border: 1px solid #666;
+	display: block;
+	text-align: center;
+	position: relative;
+	width: 200px;
+	margin: 10px auto;
+	padding: 0px;
+}
+ul#queuestacks_list > li {
+	display: inline-block;
+	margin: 10px;
+	width: 100px;
+}
+#alphabets_management .alphabet_box {
+	float: left;
+	text-align: center;
+	width: 50%;
+	height: 250px;
+	margin: 0;
+	padding: 0;
+}
+button#alphabets_submit {
+	font-size: 17px;
+	margin: 6px;
+}
+#alphabets_management .alphabet_box.primary {
+	background: #1a1a1a;
+}
+#alphabets_management .alphabet_box.auxiliar {
+	background: #1e1e1e;
+	left: 100px;
+}
+h2 {
+	font-size: 1.3em;
+	margin: 0;
+}
+h3 {
+	font-size: 1.2em;
+	margin: 0;
+	padding: 0 5px;
+}
+ul#queuestacks_list h2,
+#alphabets_management h2 {
+	background: #111;
+	padding: 5px 0px;
+}
+#alphabets_management h3 {
+	margin: 5px 10px;
+	padding: 0;
+}
+#alphabets_management .alphabet_box input {
+	width: 35px;
+}
+input[type="number"] {
+	padding: 2px 5px;
+	margin: 0 5px;
+}
+#alphabets_management .alphabet_box button {
+	line-height: inherit;
+}
+ul#queuestacks_list > li > ul,
+#alphabets_management .alphabet_box ul {
+	border: 1px solid #333;
+	list-style: none;
+	margin: 5px;
+	padding: 3px 15px;
+	height: 180px;
+	overflow: auto;
+}
+#alphabets_management .alphabet_box ul li {
+	background: #2a2a2a;
+	font-weight: bold;
+	margin: 2px 0;
+}
+#alphabets_management .alphabet_box ul li:hover {
+	background: #6B1313;
+	color: #F29D9D;
+	text-decoration: line-through;
+	font-weight: normal;
+}
+#states_management {
+	margin: 10px;
+}
+ul#state_list {
+	display: block;
+	list-style: none;
+	width: 660px;
+	margin: 0px;
+	padding: 0px;
+}
+ul#state_list > li.state {
+	background: #111;
+	border: 2px solid #111;
+	display: block;
+	float: left;
+	position: relative;
+	margin: 3px;
+	padding: 3px;
+}
+ul#state_list > li.state.current {
+	border: 2px solid #fff;
+}
+ul#state_list > li.state h2 {
+	background: #080808;
+	float: left;
+	padding: 3px;
+}
+ul#state_list > li.state > button.delete {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+ul#state_list > li.state ul.rules {
+	display: inline-block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul#state_list > li.state ul.rules > li {
+	background: #191919;
+	display: block;
+	margin: 2px 5px;
+	padding: 3px;
+}
+ul#state_list > li.state .new_rule {
+	background: #080808;
+	clear: both;
+	margin-top: 20px;
+	padding: 3px;
+}
+ul#state_list > li#qf {
+	border: 5px solid #000;
+	border: 5px solid #000;
+	margin: 20px;
+	padding: 10px;
+}
+ul#state_list > li#qf.current {
+	border: 5px solid #0a0;
+}

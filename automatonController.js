@@ -37,7 +37,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    bAlphabetsSubmit,    // button to finish editing the alphabet
 	    bExecution,          // button to switch to the execution interface
 	    bStep,               // button to execute a single step of the computation.
-	    bRunAll,             // button to execute the program till it reachs the final state (warning: possible infinte loop)
+	    bRun,                // button to execute the program till it reachs the final state (warning: possible infinte loop)
 	    bEditStates;         // button to leave execution mode and resume editing the program
 
 	// updateAlph (function to update the alphabet on interface during editing)
@@ -267,7 +267,12 @@ AUTOMATON_CONTROLLER = (function (M) {
 			w[i] = document.getElementById('q' + src.toString(10) + '_YWrite_' + i.toString(10)).value;
 			w[i] = w[i][0] === 's' ? w[i].slice(1) : parseInt(w[i], 10);
 		}
-		M.addStateRule(src, x, y, w, dest)
+		try {
+			M.addStateRule(src, x, y, w, dest);
+		}
+		catch(e) {
+			alert(e.message);
+		}
 		updateStates();
 	}
 	function removeRule(state, rule) {
@@ -329,16 +334,29 @@ AUTOMATON_CONTROLLER = (function (M) {
 		updateStacks();
 		switch (s) {
 			case FINAL:
-				alert('Computation complete / Word accepted');
+				alert('Word accepted / Computation complete');
 				break;
 			case REJECT:
-				alert('Computation failed / Word rejected');
+				alert('Word rejected / Computation failed');
 				break;
+		}
+	}
+	function bRun_onclick () {
+		if (confirm("If your program fall into a infinte loop, your browser might crash, are you sure?")) {
+			if (M.run()) {
+				alert('Word accepted / Computation complete');
+			} else {
+				alert('Word rejected / Computation failed');
+			}
+			updateStates();
+			updateStacks();
 		}
 	}
 	function bEditStates_onclick () {
 		edit = true;
+		// update the states
 		updateStates();
+		// update the stacks
 		updateStacks();
 		switchScreen("states")
 	}
@@ -391,7 +409,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 			ulStacks         = document.getElementById("queuestacks_list");
 			bExecution       = document.getElementById("goto_execution");
 			bStep            = document.getElementById("run_step");
-			bRunAll          = document.getElementById("run_all");
+			bRun             = document.getElementById("run_all");
 			editButtons      = document.getElementById("edit_buttons");
 			executeButtons   = document.getElementById("execute_buttons");
 			bEditStates      = document.getElementById("edit_states");
@@ -408,6 +426,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 			ulStacks.onclick         = ulStacks_onclick;
 			bExecution.onclick       = bExecution_onclick;
 			bStep.onclick            = bStep_onclick;
+			bRun.onclick             = bRun_onclick;
 			bEditStates.onclick      = bEditStates_onclick;
 		}
 	};

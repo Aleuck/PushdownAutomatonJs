@@ -294,12 +294,12 @@ var AUTOMATON_MODEL = (function () {
 		getQueue: function () { return X.slice(0); }, // .slice(0) will create a copy of the array
 		getAlphabet: function () { return Σ.slice(0); },
 		getAuxAlphabet: function () { return V.slice(0); },
-		getStates: function() { return Q.slice(0); },
 		getStack: function (index) { return Y[index].slice(0); },
 		addToAlphabet: addToAlphabet,
 		addToAuxAlphabet: addToAuxAlphabet,
 		removeFromAlphabet: removeFromAlphabet,
 		removeFromAuxAlphabet: removeFromAuxAlphabet,
+		getStackNumber: function() { return Y.length; },
 		newState: function () {
 			var id = Q.length;
 			var newState = new State();
@@ -307,7 +307,8 @@ var AUTOMATON_MODEL = (function () {
 			Q[id] = newState;
 			return newState;
 		},
-		getStackNumber: function() { return Y.length; },
+		removeState: removeState,
+		getStates: function() { return Q.slice(0); },
 		/* setStateRules
 		 * s: source state
 		 * x: read from x
@@ -328,7 +329,6 @@ var AUTOMATON_MODEL = (function () {
 		resetExec: resetExec,
 		step: step,
 		run: runAll,
-		removeState: removeState,
 		save: save,
 		restore: restore
 	};

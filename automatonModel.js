@@ -57,8 +57,8 @@ var AUTOMATON_MODEL = (function () {
 		}
 		AUTOMATON_MODEL.init(save.stacks);
 		q = 0;
-		Σ = save.alphabet.slice(0);
-		V = save.aux_alphabet.slice(0);
+		save.alphabet.forEach(addToAlphabet);
+		save.aux_alphabet.forEach(addToAuxAlphabet);
 		for (i = 0; i < save.states.length; i += 1) {
 			Q[i] = new State();
 			Q[i].id = i;

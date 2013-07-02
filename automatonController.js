@@ -373,10 +373,17 @@ AUTOMATON_CONTROLLER = (function (M) {
 		}
 		catch (e) {
 			alert(e.message);
+			M.init();
+			updateAlph();
+			updateAuxAlph();
+			updateStates();
+			updateStacks();
 			switchScreen("stacks");
 			return;
 		}
 		edit = false;
+		updateAlph();
+		updateAuxAlph();
 		updateStates();
 		updateStacks();
 		switchScreen("execution");

@@ -38,7 +38,9 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    bExecution,          // button to switch to the execution interface
 	    bStep,               // button to execute a single step of the computation.
 	    bRun,                // button to execute the program till it reachs the final state (warning: possible infinte loop)
-	    bEditStates;         // button to leave execution mode and resume editing the program
+	    bEditStates,         // button to leave execution mode and resume editing the program
+	    bSave,               // button to save the program
+	    bLoad;               // button to load the program
 
 	// updateAlph (function to update the alphabet on interface during editing)
 	function updateAlph() {
@@ -179,8 +181,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 		for (i = 0; i < nStacks; i += 1) {
 			stack = M.getStack(i);
 			stackListHtml.push('<li><h2>Y' + i.toString(10).sub() + '</h2><ul class="stack">');
-			for (j = 0; j < stack.length; j += 1) {
-				stackListHtml.push('<li class="symbol">' + stack[i].toString(10) + '</li>');
+			while (stack.length > 0) {
+				stackListHtml.push('<li class="symbol">' + stack.pop().toString(10) + '</li>');
 			}
 			stackListHtml.push('</ul></li>');
 		}
@@ -360,7 +362,27 @@ AUTOMATON_CONTROLLER = (function (M) {
 		updateStacks();
 		switchScreen("states")
 	}
+	function bSave_onclick () {
+		var saveData = M.save();
+		prompt("Copy the program data below and paste to a text file:", saveData);
+	}
+	function bLoad_onclick() {
+		var data = prompt("Paste the program data below:");
+		try {
+			M.restore(data);
+		}
+		catch (e) {
+			alert(e.message);
+			switchScreen("stacks");
+			return;
+		}
+		edit = false;
+		updateStates();
+		updateStacks();
+		switchScreen("execution");
+	}
 	function switchScreen(screen) {
+		bSave.disabled = true;
 		stacksManagement.style.display    = "none";
 		alphabetsManagement.style.display = "none";
 		statesManagement.style.display    = "none";
@@ -375,11 +397,13 @@ AUTOMATON_CONTROLLER = (function (M) {
 				break;
 			case "states":
 				//ulStates.onclick = ulStates_onclick;
+				bSave.disabled = false;
 				editButtons.style.display         = "block";
 				statesManagement.style.display    = "block";
 				break;
 			case "execution":
 				//ulStates.onclick = null;
+				bSave.disabled = false;
 				executeButtons.style.display      = "block";
 				statesManagement.style.display    = "block";
 				break;
@@ -413,6 +437,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 			editButtons      = document.getElementById("edit_buttons");
 			executeButtons   = document.getElementById("execute_buttons");
 			bEditStates      = document.getElementById("edit_states");
+			bSave            = document.getElementById("save");
+			bLoad            = document.getElementById("load");
 			// SET INTERFACE HANDLERS
 			switchScreen("stacks");
 			bAddAlphSym.onclick      = bAddAlphSym_onclick;
@@ -428,6 +454,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 			bStep.onclick            = bStep_onclick;
 			bRun.onclick             = bRun_onclick;
 			bEditStates.onclick      = bEditStates_onclick;
+			bSave.onclick            = bSave_onclick;
+			bLoad.onclick             = bLoad_onclick;
 		}
 	};
 }(AUTOMATON_MODEL));

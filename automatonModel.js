@@ -47,7 +47,15 @@ var AUTOMATON_MODEL = (function () {
 		return JSON.stringify(save);
 	}
 	function restore(json) {
-		var i, save = JSON.parse(json);
+		var i, errors = [], save;
+		try {
+			save = JSON.parse(json);
+		}
+		catch (e) {
+			throw new Error("Specified program is not valid.");
+			return;
+		}
+		AUTOMATON_MODEL.init(save.stacks);
 		q = 0;
 		Σ = save.alphabet.slice(0);
 		V = save.aux_alphabet.slice(0);
@@ -55,8 +63,17 @@ var AUTOMATON_MODEL = (function () {
 			Q[i] = new State();
 			Q[i].id = i;
 			save.states[i].rules.forEach(function (rule) {
-				Q[i].addRule(rule.q, rule.X, rule.Y, rule.W);
+				try {
+					Q[i].addRule(rule.q, rule.X, rule.Y, rule.W);
+				}
+				catch (e) {
+					errors.push(e.message)
+				}
 			});
+		}
+		if (errors.length > 0) {
+			throw new Error(errors.join("\n"));
+			return;
 		}
 	}
 	function runAll() {
@@ -154,7 +171,7 @@ var AUTOMATON_MODEL = (function () {
 		},
 		addRule: function (q, x, y, w) {
 			var i, e_rule, n_rule, ruleIdx = this.rules.length, ruleIsAmbiguous = true;
-			if (q > Q.length) throw new Error("Invalid rule: destination state does not exist.");
+			if (q > Q.length) throw new Error("undefined state");
 			this.rules[ruleIdx] = { 'q': q, 'X': x || ε, 'Y': [], 'W': [] };
 			n_rule = this.rules[ruleIdx];
 			for (i = 0; i < Y.length; i += 1) {
@@ -175,7 +192,7 @@ var AUTOMATON_MODEL = (function () {
 					return ambiguity;
 				}()) {
 					this.rules.pop();
-					throw new Error("This rule causes ambiguity.");
+					throw new Error("Ambiguous rules on q" + this.id.toString(10));
 					return;
 				}
 			}

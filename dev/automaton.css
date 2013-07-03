@@ -1,29 +1,40 @@
+* {
+	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+}
 body {
-	background: #222;
-	color: #b0b9c0;
+	background: #E4EFE4;
+	color: #343;
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
 }
-* {
-	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
-}
 header {
-	background: #000;
+	background: #ACA;
+	color: #232;
 	padding: 15px;
 	height: 90px;
+	position: relative;
 }
 header #execute_buttons {
+	font-size: 16px;
+	text-align: right;
 	position: absolute;
-	top: 10px;
-	left: 10px;
+	bottom: 10px;
+	right: 10px;
 	width: 140px;
 }
 header #edit_buttons {
+	font-size: 16px;
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	bottom: 10px;
+	left: 10px;
 	width: 140px;
+}
+#save_load {
+	font-size: 16px;
+}
+header button {
+	margin: 2px;
 }
 header #definitions {
 	position: absolute;
@@ -40,7 +51,6 @@ header #definitions h1 {
 header #definitions ul {
 	list-style: none;
 	display: block;
-	background: #000;
 	margin: 0px;
 	padding: 0px;
 }
@@ -64,8 +74,8 @@ section#content {
 	overflow: auto;
 }
 footer {
-	background: #191919;
-	color: #666;
+	background: #aca;
+	color: #575;
 	font-size: 0.8em;
 	text-align: center;
 	padding: 5px;
@@ -79,8 +89,8 @@ footer p {
 	margin: 5px;
 }
 footer a {
-	border-bottom: 1px dashed #eee;
-	color: #aaa;
+	border-bottom: 1px dashed #363;
+	color: #363;
 	text-decoration: none;
 }
 input {
@@ -93,8 +103,8 @@ input {
 	padding: 2px 3px;
 }
 button {
-	background: #1E5910;
-	color: #99D18E;
+	background: #5b5;
+	color: #242;
 	border: 0px none;
 	border-radius: 4px;
 	font-size: 1em;
@@ -102,8 +112,8 @@ button {
 	padding: 1px 2px;
 }
 button[disabled] {
-	background: #202020;
-	color: #777;
+	background: #ccc;
+	color: #999;
 }
 select {
 	background: #444;
@@ -297,8 +307,4 @@ ul#state_list > li#qf {
 }
 ul#state_list > li#qf.current {
 	border: 5px solid #0a0;
-}
-#goto_execution,
-#edit_states {
-	float: right;
 }

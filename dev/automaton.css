@@ -3,14 +3,14 @@
 }
 body {
 	background: #E4EFE4;
-	color: #343;
+	color: #121;
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
 }
 header {
 	background: #ACA;
-	color: #232;
+	color: #121;
 	padding: 15px;
 	height: 90px;
 	position: relative;
@@ -32,9 +32,11 @@ header #edit_buttons {
 }
 #save_load {
 	font-size: 16px;
+	text-align: right;
+	padding: 5px;
 }
 header button {
-	margin: 2px;
+	margin: 2px 0px;
 }
 header #definitions {
 	position: absolute;
@@ -65,17 +67,16 @@ header #definitions ul.definitions li {
 	padding: 0;
 }
 section#content {
-	padding: 10px;
 	position: absolute;
 	top: 120px;
-	bottom: 60px;
+	bottom: 75px;
 	left: 0;
 	right: 0;
 	overflow: auto;
 }
 footer {
 	background: #aca;
-	color: #575;
+	color: #464;
 	font-size: 0.8em;
 	text-align: center;
 	padding: 5px;
@@ -83,7 +84,7 @@ footer {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 50px;
+	height: 65px;
 }
 footer p {
 	margin: 5px;
@@ -112,19 +113,23 @@ button {
 	padding: 1px 2px;
 }
 button[disabled] {
-	background: #ccc;
-	color: #999;
+	background: #909090;
+	color: #666;
 }
 select {
-	background: #444;
+	background: #888;
 	border: 0px none;
 	border-radius: 3px;
-	color: #ddd;
+	color: #222;
 	font-size: 1em;
 }
 button.delete {	
 	background: #56100F;
 	color: #CE8D8C;
+	text-align: center;
+	width: 15px;
+	margin: 0;
+	padding: 0;
 }
 #stacks_management {
 	font-size: 25px;
@@ -142,7 +147,7 @@ ul#queuestacks_list {
 }
 ul#queuestacks_list > li,
 #alphabets_management {
-	border: 1px solid #666;
+	border: 1px solid #AAA;
 	display: block;
 	text-align: center;
 	position: relative;
@@ -169,10 +174,10 @@ button#alphabets_submit {
 	margin: 6px;
 }
 #alphabets_management .alphabet_box.primary {
-	background: #1a1a1a;
+	background: #E0EBE0;
 }
 #alphabets_management .alphabet_box.auxiliar {
-	background: #1e1e1e;
+	background: #E0E0E0;
 	left: 100px;
 }
 h2 {
@@ -186,7 +191,7 @@ h3 {
 }
 ul#queuestacks_list h2,
 #alphabets_management h2 {
-	background: #111;
+	background: #BDB;
 	padding: 5px 0px;
 }
 #alphabets_management h3 {
@@ -203,10 +208,19 @@ input[type="number"] {
 #alphabets_management .alphabet_box button {
 	line-height: inherit;
 }
+ul#queuestacks_list {
+	width: 400px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	overflow: auto;
+	padding: 5px;
+}
 ul#queuestacks_list > li > ul,
 #alphabets_management .alphabet_box ul {
 	display: block;
-	border: 1px solid #333;
+	border: 1px solid #aaa;
 	list-style: none;
 	margin: 5px;
 	padding: 3px 15px;
@@ -216,16 +230,16 @@ ul#queuestacks_list > li > ul,
 ul#queuestacks_list > li > ul > li,
 #alphabets_management .alphabet_box > ul > li {
 	display: block;
-	background: #2a2a2a;
+	background: #B9B9B9;
 	font-weight: bold;
 	margin: 2px 0;
 }
 ul#queuestacks_list > li > ul > li:nth-child(1) {
-	background: #1a3a1a;
+	background: #40a040;
 }
 #alphabets_management .alphabet_box ul li:hover {
-	background: #6B1313;
-	color: #F29D9D;
+	background: #c66;
+	color: #411;
 	text-decoration: line-through;
 	font-weight: normal;
 }
@@ -250,31 +264,25 @@ ul#state_list {
 	overflow: auto;
 	padding: 5px;
 }
-ul#queuestacks_list {
-	width: 400px;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	overflow: auto;
-	padding: 5px;
-}
 ul#state_list > li.state {
-	background: #111;
-	border: 2px solid #111;
+	background: #ccc;
+	border: 4px solid #ccc;
 	display: block;
 	float: left;
 	position: relative;
 	margin: 3px;
-	padding: 3px;
+	padding: 2px;
 }
 ul#state_list > li.state.current {
-	border: 2px solid #fff;
+	border: 4px solid #575;
 }
 ul#state_list > li.state h2 {
-	background: #080808;
+	background: #dfd;
 	float: left;
 	padding: 3px;
+}
+ul#state_list > li.state h3 {
+	font-size: 1.1em;
 }
 ul#state_list > li.state > button.delete {
 	position: absolute;
@@ -288,23 +296,25 @@ ul#state_list > li.state ul.rules {
 	padding: 0;
 }
 ul#state_list > li.state ul.rules > li {
-	background: #191919;
+	background: #e8e8e8;
 	display: block;
 	margin: 2px 5px;
 	padding: 3px;
 }
+ul#state_list > li.state ul.rules > li.next {
+	background: #78e878;
+}
 ul#state_list > li.state .new_rule {
-	background: #080808;
+	background: #eee;
 	clear: both;
-	margin-top: 20px;
+	margin-top: 5px;
 	padding: 3px;
 }
 ul#state_list > li#qf {
-	border: 5px solid #000;
-	border: 5px solid #000;
+	border: 5px solid #ccc;
 	margin: 20px;
-	padding: 10px;
+	padding: 5px;
 }
 ul#state_list > li#qf.current {
-	border: 5px solid #0a0;
+	border: 5px solid #272;
 }

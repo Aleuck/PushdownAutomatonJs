@@ -77,7 +77,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 		    nStacks = M.getStackNumber(),
 		    nStates = states.length,
 		    queue = M.getQueue(),
-		    c_state = M.getCurrentState();
+		    c_state = M.getCurrentState(),
+		    next_rules = ((c_state >= 0) && states[c_state].nextRules()) || [],
 		    stateListHtml = [],
 		    statesDefHtml = [],
 		    stacksListHtml = [];
@@ -95,7 +96,11 @@ AUTOMATON_CONTROLLER = (function (M) {
 			}
 			stateListHtml.push('<ul class="rules"><h3>Rules</h3>');
 			for (j = 0; j < states[i].rules.length; j += 1) {
-				stateListHtml.push('<li>Π(q' + i.toString(10));
+				stateListHtml.push('<li');
+				if (i === c_state && -1 !== next_rules.indexOf(j)) {
+					stateListHtml.push(' class="next"');
+				}
+				stateListHtml.push('>Π(q' + i.toString(10));
 				s = states[i].rules[j].X;
 				if (s === EMPTY) { s = '?'; }
 				if (s === ε) { s = 'ε'; }
@@ -261,12 +266,18 @@ AUTOMATON_CONTROLLER = (function (M) {
 	function addRule(src) {
 		var i, x, y = [], w = [], dest, nStacks = M.getStackNumber()
 		dest = parseInt(document.getElementById('q' + src.toString(10) + '_stateTo').value, 10);
+		// get the raw symbol
 		x = document.getElementById("q" + src.toString(10) + "_XRead").value;
+		// symbols startinh with 's'  are strings, anything else should be a integer constant
 		x = x[0] === 's' ? x.slice(1) : parseInt(x, 10);
 		for (i = 0; i < nStacks; i += 1) {
+			// get the raw symbol
 			y[i] = document.getElementById('q' + src.toString(10) + '_YRead_' + i.toString(10)).value;
+			// symbols startinh with 's'  are strings, anything else should be a integer constant
 			y[i] = y[i][0] === 's' ? y[i].slice(1) : parseInt(y[i], 10);
+			// get the raw symbol
 			w[i] = document.getElementById('q' + src.toString(10) + '_YWrite_' + i.toString(10)).value;
+			// symbols startinh with 's'  are strings, anything else should be a integer constant
 			w[i] = w[i][0] === 's' ? w[i].slice(1) : parseInt(w[i], 10);
 		}
 		try {
@@ -309,14 +320,18 @@ AUTOMATON_CONTROLLER = (function (M) {
 			}
 		}
 	}
+	function bSetQueue () {
+		var q = document.getElementById("input_queue").value.split("");
+		M.setQueue(q);
+		updateStacks();
+		updateStates();
+	}
 	function ulStacks_onclick (e) {
 		var elem, q;
 		e = e || event;
 		elem = e.target;
 		if (elem.id === "set_queue") {
-			q = document.getElementById("input_queue").value.split("");
-			M.setQueue(q);
-			updateStacks();
+			bSetQueue();
 		}
 	}
 	function bExecution_onclick () {
@@ -337,9 +352,15 @@ AUTOMATON_CONTROLLER = (function (M) {
 		switch (s) {
 			case FINAL:
 				alert('Word accepted / Computation complete');
+				M.resetExec();
+				updateStates();
+				updateStacks();
 				break;
 			case REJECT:
 				alert('Word rejected / Computation failed');
+				M.resetExec();
+				updateStates();
+				updateStacks();
 				break;
 		}
 	}

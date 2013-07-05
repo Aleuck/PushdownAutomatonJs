@@ -90,38 +90,40 @@ footer p {
 	margin: 5px;
 }
 footer a {
-	border-bottom: 1px dashed #363;
+	border-bottom: 0px dashed #363;
 	color: #363;
 	text-decoration: none;
 }
 input {
-	background: #BBB;
-	border: 0px none;
+	background: #ccc;
+	border: 0px solid #000;
 	border-radius: 4px;
 	color: #000;
 	font-size: 1em;
 	margin: 0;
-	padding: 2px 3px;
+	padding: 0px 1px;
 }
 button {
-	background: #5b5;
-	color: #242;
-	border: 0px none;
+	background: #585;
+	border: 0px solid #020;
+	color: #232;
 	border-radius: 4px;
 	font-size: 1em;
 	margin: 0;
-	padding: 1px 2px;
+	padding: 0px 1px;
 }
 button[disabled] {
+	border: 0px solid #020;
 	background: #909090;
 	color: #666;
 }
 select {
-	background: #888;
-	border: 0px none;
+	background: #aaa;
+	border: 0px solid #020;
 	border-radius: 3px;
 	color: #222;
 	font-size: 1em;
+	padding: 0px 1px;
 }
 button.delete {	
 	background: #56100F;
@@ -299,7 +301,13 @@ ul#state_list > li.state ul.rules > li {
 	background: #e8e8e8;
 	display: block;
 	margin: 2px 5px;
-	padding: 3px;
+	padding: 3px 23px 3px 3px;
+	position: relative;
+}
+ul#state_list > li.state ul.rules > li button.delete {
+	position: absolute;
+	top: 1px;
+	right: 3px;
 }
 ul#state_list > li.state ul.rules > li.next {
 	background: #78e878;
@@ -309,6 +317,9 @@ ul#state_list > li.state .new_rule {
 	clear: both;
 	margin-top: 5px;
 	padding: 3px;
+}
+.state button {
+	margin: 2px 0;
 }
 ul#state_list > li#qf {
 	border: 5px solid #ccc;

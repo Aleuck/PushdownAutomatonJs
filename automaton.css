@@ -39,7 +39,7 @@ section#content {
 	padding: 10px;
 	position: absolute;
 	top: 120px;
-	bottom: 60px;
+	bottom: 75px;
 	left: 0;
 	right: 0;
 	overflow: auto;
@@ -54,7 +54,7 @@ footer {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: 50px;
+	height: 65px;
 }
 footer p {
 	margin: 5px;
@@ -123,6 +123,7 @@ ul#queuestacks_list > li,
 }
 ul#queuestacks_list > li {
 	display: inline-block;
+	vertical-align: top;
 	margin: 10px;
 	width: 100px;
 }

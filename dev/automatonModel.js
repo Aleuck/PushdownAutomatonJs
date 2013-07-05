@@ -109,8 +109,8 @@ var AUTOMATON_MODEL = (function () {
 	State.prototype = {
 		id: 0,
 		rules: null,
-		execute: function () {
-			var r, rulesToFollow;
+		nextRules: function () {
+			var rulesToFollow, that = this;
 			// filter all the rules for rules that match the current state.
 			rulesToFollow = this.rules.filter(function (rule) {
 				var i, sX, sY = [], follow = true; // assume the rule can be applied
@@ -141,13 +141,18 @@ var AUTOMATON_MODEL = (function () {
 				}
 				return follow;
 			});
+			return rulesToFollow.map(function (rule) { return that.rules.indexOf(rule); });
+		},
+		execute: function () {
+			var r, rulesToFollow;
+			rulesToFollow = this.nextRules();
 			if (rulesToFollow.length === 0) {
 				// no rule matches, reject the word
 				return REJECT;
 			}
 			if (rulesToFollow.length === 1) {
 				// 1 rule match, execute it:
-				r = rulesToFollow[0];
+				r = this.rules[rulesToFollow[0]];
 				if (r.X !== ε && r.X !== EMPTY) {
 					// reading (removing) symbol read from the queue
 					X = X.slice(1);
@@ -198,6 +203,8 @@ var AUTOMATON_MODEL = (function () {
 			}
 		}
 	};
+	function nextRuleIdx() {
+	}
 	function removeState (index) {
 		var i, j;
 		for (i = 0; i < Q.length; i += 1) {

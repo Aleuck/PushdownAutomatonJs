@@ -37,6 +37,7 @@ header #edit_buttons {
 	position: absolute;
 	bottom: 5px;
 	right: 5px;
+	z-index: 10;
 }
 header button {
 	margin: 2px 0px;

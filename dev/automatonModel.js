@@ -62,6 +62,8 @@ var AUTOMATON_MODEL = (function () {
 		for (i = 0; i < save.states.length; i += 1) {
 			Q[i] = new State();
 			Q[i].id = i;
+		}
+		for (i = 0; i < save.states.length; i += 1) {
 			save.states[i].rules.forEach(function (rule) {
 				try {
 					Q[i].addRule(rule.q, rule.X, rule.Y, rule.W);

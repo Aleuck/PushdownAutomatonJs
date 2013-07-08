@@ -371,6 +371,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 			} else {
 				alert('Word rejected / Computation failed');
 			}
+			M.resetExec();
 			updateStates();
 			updateStacks();
 		}

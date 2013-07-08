@@ -31,9 +31,12 @@ header #edit_buttons {
 	width: 140px;
 }
 #save_load {
-	font-size: 16px;
+	font-size: 18px;
 	text-align: right;
 	padding: 5px;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
 }
 header button {
 	margin: 2px 0px;
@@ -279,7 +282,7 @@ ul#state_list > li.state.current {
 	border: 4px solid #575;
 }
 ul#state_list > li.state h2 {
-	background: #dfd;
+	background: #ddd;
 	float: left;
 	padding: 3px;
 }

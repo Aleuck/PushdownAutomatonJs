@@ -21,15 +21,15 @@ var ε = -1,      // read/write nothing
 // Automaton singleton (Model)
 var AUTOMATON_MODEL = (function () {
 	// Private variables.
-	var Σ, V, X, Y, nStacks, Q = 0, q, prev_q;
-	// Σ      := alphabet
-	// V      := auxiliar alphabet
-	// X      := queue
-	// Y      := array of stacks
-	// Q      := states
-	// F      := array of final states indexes
-	// q      := current state
-	// prev_q := last state beforing stopping
+	var Σ,       // alphabet
+	    V,       // auxiliar alphabet
+	    X,       // queue
+	    Y,       // array of stacks
+	    nStacks, // number 
+	    Q,       // states
+	    q = 0,   // current state
+	    prev_q;  // precious state
+	
 	function save() {
 		var i, j, save = {};
 		save.stacks = nStacks;
@@ -182,7 +182,9 @@ var AUTOMATON_MODEL = (function () {
 			this.rules[ruleIdx] = { 'q': q, 'X': x || ε, 'Y': [], 'W': [] };
 			n_rule = this.rules[ruleIdx];
 			for (i = 0; i < Y.length; i += 1) {
+				// if the read rule is defined use it "y[i]", otherwise, use ε
 				n_rule.Y[i] = (y && y[i]) || ε;
+				// if the write rule is defined use it "w[i]", otherwise, use ε
 				n_rule.W[i] = (w && w[i]) || ε;
 			}
 			for (i = 0; i < ruleIdx; i += 1) {

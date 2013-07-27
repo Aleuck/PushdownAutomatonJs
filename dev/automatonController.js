@@ -32,6 +32,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    ulStacks,            // list containing the input queue and all the stacks
 	    iAlphSym,            // input field for the alphabet symbols
 	    iAuxAlphSym,         // input field for the auxiliar alphabet symbols
+	    iQueue,              // input field for the queue.
 	    bAddAlphSym,         // button to add symbol on input to the alphabet
 	    bAddAuxAlphSym,      // button to add symbol on input to the auxiliar alphabet
 	    bAlphabetsSubmit,    // button to finish editing the alphabet
@@ -39,6 +40,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    bStep,               // button to execute a single step of the computation.
 	    bRun,                // button to execute the program till it reachs the final state (warning: possible infinte loop)
 	    bEditStates,         // button to leave execution mode and resume editing the program
+	    bSetQueue,           // button to set the input queue's content
 	    bSave,               // button to save the program
 	    bLoad;               // button to load the program
 
@@ -191,9 +193,9 @@ AUTOMATON_CONTROLLER = (function (M) {
 			}
 			stackListHtml.push('</ul></li>');
 		}
-		if (!edit) {
-			stackListHtml.push('<br><input id="input_queue" type="text" placeholder="Set input queue"> <button type="button" id="set_queue">set</button>');
-		}
+		// if (!edit) {
+		// 	stackListHtml.push('<br><input id="input_queue" type="text" placeholder="Set input queue"> <button type="button" id="set_queue">set</button>');
+		// }
 		ulStacks.innerHTML = stackListHtml.join("");
 	}
 	function bAddAlphSym_onclick() {
@@ -320,7 +322,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 			}
 		}
 	}
-	function bSetQueue () {
+	function bSetQueue_onclick () {
 		var q = document.getElementById("input_queue").value.split("");
 		M.setQueue(q);
 		updateStacks();
@@ -331,7 +333,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 		e = e || event;
 		elem = e.target;
 		if (elem.id === "set_queue") {
-			bSetQueue();
+			bSetQueue_onclick();
 		}
 	}
 	function bExecution_onclick () {

@@ -37,7 +37,7 @@ header #edit_buttons {
 	position: absolute;
 	bottom: 5px;
 	right: 5px;
-	z-index: 10;
+	z-index: 15;
 }
 header button {
 	margin: 2px 0px;
@@ -106,20 +106,20 @@ input {
 	color: #000;
 	font-size: 1em;
 	margin: 0;
-	padding: 0px 1px;
+	padding: 2px 1px;
 }
 button {
-	background: #585;
+	background: #6a6;
 	border: 0px solid #020;
-	color: #232;
+	color: #020;
 	border-radius: 4px;
 	font-size: 1em;
 	margin: 0;
-	padding: 0px 1px;
+	padding: 2px 2px;
 }
 button[disabled] {
 	border: 0px solid #020;
-	background: #909090;
+	background: #a0a0a0;
 	color: #666;
 }
 select {
@@ -253,7 +253,7 @@ ul#queuestacks_list > li > ul > li:nth-child(1) {
 #states_management {
 	padding: 10px;
 	position: absolute;
-	top: 35px;
+	top: 0px;
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
@@ -264,7 +264,7 @@ ul#state_list {
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
-	top: 0px;
+	top: 35px;
 	bottom: 0px;
 	left: 0px;
 	right: 410px;

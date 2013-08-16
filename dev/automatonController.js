@@ -42,7 +42,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    bEditStates,         // button to leave execution mode and resume editing the program
 	    bSetQueue,           // button to set the input queue's content
 	    bSave,               // button to save the program
-	    bLoad;               // button to load the program
+	    lLoad;               // file input's label to load the program
 
 	// updateAlph (function to update the alphabet on interface during editing)
 	function updateAlph() {
@@ -323,18 +323,11 @@ AUTOMATON_CONTROLLER = (function (M) {
 		}
 	}
 	function bSetQueue_onclick () {
-		var q = document.getElementById("input_queue").value.split("");
+		if (this.disabled) return;
+		var q = iQueue.value.split("");
 		M.setQueue(q);
 		updateStacks();
 		updateStates();
-	}
-	function ulStacks_onclick (e) {
-		var elem, q;
-		e = e || event;
-		elem = e.target;
-		if (elem.id === "set_queue") {
-			bSetQueue_onclick();
-		}
 	}
 	function bExecution_onclick () {
 		edit = false;
@@ -390,8 +383,9 @@ AUTOMATON_CONTROLLER = (function (M) {
 		var saveData = M.save();
 		prompt("Copy the program data below and paste to a text file:", saveData);
 	}
-	function bLoad_onclick() {
-		var data = prompt("Paste the program data below:");
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		var data = e.target.result;
 		try {
 			M.restore(data);
 		}
@@ -412,13 +406,21 @@ AUTOMATON_CONTROLLER = (function (M) {
 		updateStacks();
 		switchScreen("execution");
 	}
+	function loadFile() {
+		var file = this.files[0];
+		reader.readAsText(file);
+	}
 	function switchScreen(screen) {
 		bSave.disabled = true;
 		bRun.disabled = true;
 		bStep.disabled = true;
 		bNewState.disabled = true;
-		bExecution.disabled = true;
+		//bInput_queue.disabled = true;
 		bEditStates.disabled = true;
+		bSetQueue.disabled = true;
+		iQueue.disabled = true;
+		console.log(iQueue);
+		console.log(bSetQueue);
 		stacksManagement.style.display    = "none";
 		alphabetsManagement.style.display = "none";
 		statesManagement.style.display    = "none";
@@ -445,6 +447,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 				bEditStates.disabled = false;
 				bRun.disabled = false;
 				bStep.disabled = false;
+				bSetQueue.disabled = false;
+				iQueue.disabled = false;
 				//executeButtons.style.display      = "block";
 				statesManagement.style.display    = "block";
 				break;
@@ -465,11 +469,13 @@ AUTOMATON_CONTROLLER = (function (M) {
 			iAlphSym         = document.getElementById("input_alphabet_symbol");
 			iAuxAlphSym      = document.getElementById("input_aux_alphabet_symbol");
 			iStacksNumber    = document.getElementById("stacks_number");
+			iQueue           = document.getElementById("input_queue");
 			bAddAlphSym      = document.getElementById("add_alphabet");
 			bAddAuxAlphSym   = document.getElementById("add_aux_alphabet");
 			bStacksNumber    = document.getElementById("set_stacks_number");
 			bAlphabetsSubmit = document.getElementById("alphabets_submit");
 			bNewState        = document.getElementById("new_state");
+			bSetQueue        = document.getElementById("set_queue");
 			ulStates         = document.getElementById("state_list");
 			ulStacks         = document.getElementById("queuestacks_list");
 			bExecution       = document.getElementById("goto_execution");
@@ -479,7 +485,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 			executeButtons   = document.getElementById("execute_buttons");
 			bEditStates      = document.getElementById("edit_states");
 			bSave            = document.getElementById("save");
-			bLoad            = document.getElementById("load");
+			lLoad            = document.getElementById("load");
 			// SET INTERFACE HANDLERS
 			switchScreen("stacks");
 			bAddAlphSym.onclick      = bAddAlphSym_onclick;
@@ -489,14 +495,14 @@ AUTOMATON_CONTROLLER = (function (M) {
 			bStacksNumber.onclick    = bStackNumber_onclick;
 			bAlphabetsSubmit.onclick = bAlphabetsSubmit_onclick;
 			bNewState.onclick        = bNewState_onclick;
+			bSetQueue.onclick        = bSetQueue_onclick;
 			ulStates.onclick         = ulStates_onclick;
-			ulStacks.onclick         = ulStacks_onclick;
 			bExecution.onclick       = bExecution_onclick;
 			bStep.onclick            = bStep_onclick;
 			bRun.onclick             = bRun_onclick;
 			bEditStates.onclick      = bEditStates_onclick;
 			bSave.onclick            = bSave_onclick;
-			bLoad.onclick             = bLoad_onclick;
+			lLoad.control.onchange   = loadFile;
 		}
 	};
 }(AUTOMATON_MODEL));

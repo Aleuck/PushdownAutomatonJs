@@ -1,52 +1,87 @@
+* {
+	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+}
 body {
-	background: #222;
-	color: #b0b9c0;
+	background: #E4EFE4;
+	color: #121;
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
 }
-* {
-	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
-}
-header#machine_definitions {
-	background: #000;
+header {
+	background: #ACA;
+	color: #121;
 	padding: 15px;
 	height: 90px;
+	position: relative;
 }
-header#machine_definitions h1 {
+header #execute_buttons {
+	font-size: 16px;
+	text-align: right;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	width: 140px;
+}
+header #edit_buttons {
+	font-size: 16px;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	width: 140px;
+}
+#save_load {
+	font-size: 13px;
+	text-align: right;
+	padding: 5px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 15;
+}
+header button {
+	margin: 2px 0px;
+}
+header #definitions {
+	position: absolute;
+	top: 10px;
+	bottom: 0px;
+	left: 150px;
+	right: 150px;
+}
+header #definitions h1 {
 	font-size: 1.2em;
 	margin: 0;
 	padding: 0;
 }
-header#machine_definitions ul {
+header #definitions ul {
 	list-style: none;
 	display: block;
-	background: #000;
 	margin: 0px;
 	padding: 0px;
 }
-header ul.definitions {
+header #definitions ul.definitions {
 	display: inline-block;
 	float: left;
 	width: 50%;
 }
-header ul.definitions li {
+header #definitions ul.definitions li {
 	display: block;
 	margin: 0;
 	padding: 0;
 }
 section#content {
-	padding: 10px;
 	position: absolute;
 	top: 120px;
 	bottom: 75px;
 	left: 0;
 	right: 0;
 	overflow: auto;
+	padding: 10px;
 }
 footer {
-	background: #191919;
-	color: #666;
+	background: #aca;
+	color: #464;
 	font-size: 0.8em;
 	text-align: center;
 	padding: 5px;
@@ -60,42 +95,49 @@ footer p {
 	margin: 5px;
 }
 footer a {
-	border-bottom: 1px dashed #eee;
-	color: #aaa;
+	border-bottom: 0px dashed #363;
+	color: #363;
 	text-decoration: none;
 }
 input {
-	background: #BBB;
-	border: 0px none;
+	background: #bbb;
+	border: 0px solid #000;
 	border-radius: 4px;
 	color: #000;
 	font-size: 1em;
 	margin: 0;
-	padding: 2px 3px;
+	padding: 2px 1px;
 }
+label,
 button {
-	background: #1E5910;
-	color: #99D18E;
-	border: 0px none;
+	background: #6a6;
+	border: 0px solid #020;
+	color: #020;
 	border-radius: 4px;
 	font-size: 1em;
 	margin: 0;
-	padding: 1px 2px;
+	padding: 2px 2px;
 }
 button[disabled] {
-	background: #202020;
-	color: #777;
+	border: 0px solid #020;
+	background: #a0a0a0;
+	color: #666;
 }
 select {
-	background: #444;
-	border: 0px none;
+	background: #aaa;
+	border: 0px solid #020;
 	border-radius: 3px;
-	color: #ddd;
+	color: #222;
 	font-size: 1em;
+	padding: 0px 1px;
 }
 button.delete {	
 	background: #56100F;
 	color: #CE8D8C;
+	text-align: center;
+	width: 15px;
+	margin: 0;
+	padding: 0;
 }
 #stacks_management {
 	font-size: 25px;
@@ -106,26 +148,22 @@ input#stacks_number {
 }
 ul#queuestacks_list {
 	display: block;
-	float: right;
+	vertical-align: top;
 	list-style: none;
 	margin: 5px;
 	padding: 0;
 }
-ul#queuestacks_list > li,
 #alphabets_management {
-	border: 1px solid #666;
+	border: 1px solid #AAA;
 	display: block;
 	text-align: center;
 	position: relative;
 	width: 200px;
-	margin: 10px auto;
+	margin: 0 auto;
 	padding: 0px;
 }
 ul#queuestacks_list > li {
-	display: inline-block;
-	vertical-align: top;
-	margin: 10px;
-	width: 100px;
+	border: 1px solid #AAA;
 }
 #alphabets_management .alphabet_box {
 	float: left;
@@ -140,10 +178,10 @@ button#alphabets_submit {
 	margin: 6px;
 }
 #alphabets_management .alphabet_box.primary {
-	background: #1a1a1a;
+	background: #E0EBE0;
 }
 #alphabets_management .alphabet_box.auxiliar {
-	background: #1e1e1e;
+	background: #E0E0E0;
 	left: 100px;
 }
 h2 {
@@ -157,7 +195,7 @@ h3 {
 }
 ul#queuestacks_list h2,
 #alphabets_management h2 {
-	background: #111;
+	background: #BDB;
 	padding: 5px 0px;
 }
 #alphabets_management h3 {
@@ -165,7 +203,7 @@ ul#queuestacks_list h2,
 	padding: 0;
 }
 #alphabets_management .alphabet_box input {
-	width: 35px;
+	width: 20px;
 }
 input[type="number"] {
 	padding: 2px 5px;
@@ -174,34 +212,74 @@ input[type="number"] {
 #alphabets_management .alphabet_box button {
 	line-height: inherit;
 }
-ul#queuestacks_list > li > ul,
+ul#queuestacks_list {
+	width: 400px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	overflow: auto;
+	padding: 5px;
+}
+ul#queuestacks_list > li {
+	display: block;
+	vertical-align: middle;
+	text-align: left;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 5px 0;
+	padding: 0;
+}
+ul#queuestacks_list > li > h2	 {
+	vertical-align: middle;
+	display: inline-block;
+	margin: 0;
+	padding: 3px;
+}
+ul#queuestacks_list > li > ul {
+	vertical-align: middle;
+	border: 0px none;
+	display: inline-block;
+	height: auto;
+	margin: 0;
+	padding: 0 3px;
+}
+ul#queuestacks_list > li > ul > li {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 3px;
+	margin: 0px;
+	font-weight: bold;
+}
 #alphabets_management .alphabet_box ul {
-	border: 1px solid #333;
+	display: block;
+	border: 1px solid #aaa;
 	list-style: none;
 	margin: 5px;
 	padding: 3px 15px;
 	height: 180px;
 	overflow: auto;
 }
-ul#queuestacks_list > li > ul > li,
 #alphabets_management .alphabet_box > ul > li {
-	background: #2a2a2a;
+	display: block;
+	background: #B9B9B9;
 	font-weight: bold;
 	margin: 2px 0;
 }
-ul#queuestacks_list > li > ul > li:nth-child(1) {
-	background: #1a3a1a;
+ul#queuestacks_list > li > ul > li:first-child {
+	background: #40a040;
 }
 #alphabets_management .alphabet_box ul li:hover {
-	background: #6B1313;
-	color: #F29D9D;
+	background: #c66;
+	color: #411;
 	text-decoration: line-through;
 	font-weight: normal;
 }
 #states_management {
 	padding: 10px;
 	position: absolute;
-	top: 35px;
+	top: 0px;
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
@@ -212,38 +290,32 @@ ul#state_list {
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
-	top: 0px;
+	top: 35px;
 	bottom: 0px;
 	left: 0px;
 	right: 410px;
 	overflow: auto;
 	padding: 5px;
 }
-ul#queuestacks_list {
-	width: 400px;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	overflow: auto;
-	padding: 5px;
-}
 ul#state_list > li.state {
-	background: #111;
-	border: 2px solid #111;
+	background: #ccc;
+	border: 4px solid #ccc;
 	display: block;
 	float: left;
 	position: relative;
 	margin: 3px;
-	padding: 3px;
+	padding: 2px;
 }
 ul#state_list > li.state.current {
-	border: 2px solid #fff;
+	border: 4px solid #575;
 }
 ul#state_list > li.state h2 {
-	background: #080808;
+	background: #ddd;
 	float: left;
 	padding: 3px;
+}
+ul#state_list > li.state h3 {
+	font-size: 1.1em;
 }
 ul#state_list > li.state > button.delete {
 	position: absolute;
@@ -257,27 +329,34 @@ ul#state_list > li.state ul.rules {
 	padding: 0;
 }
 ul#state_list > li.state ul.rules > li {
-	background: #191919;
+	background: #e8e8e8;
 	display: block;
 	margin: 2px 5px;
-	padding: 3px;
+	padding: 3px 23px 3px 3px;
+	position: relative;
+}
+ul#state_list > li.state ul.rules > li button.delete {
+	position: absolute;
+	top: 1px;
+	right: 3px;
+}
+ul#state_list > li.state ul.rules > li.next {
+	background: #78e878;
 }
 ul#state_list > li.state .new_rule {
-	background: #080808;
+	background: #eee;
 	clear: both;
-	margin-top: 20px;
+	margin-top: 5px;
 	padding: 3px;
 }
+.state button {
+	margin: 2px 0;
+}
 ul#state_list > li#qf {
-	border: 5px solid #000;
-	border: 5px solid #000;
+	border: 5px solid #ccc;
 	margin: 20px;
-	padding: 10px;
+	padding: 5px;
 }
 ul#state_list > li#qf.current {
-	border: 5px solid #0a0;
-}
-#goto_execution,
-#edit_states {
-	float: right;
+	border: 5px solid #272;
 }

@@ -32,6 +32,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    ulStacks,            // list containing the input queue and all the stacks
 	    iAlphSym,            // input field for the alphabet symbols
 	    iAuxAlphSym,         // input field for the auxiliar alphabet symbols
+	    iQueue,              // input field for the queue.
 	    bAddAlphSym,         // button to add symbol on input to the alphabet
 	    bAddAuxAlphSym,      // button to add symbol on input to the auxiliar alphabet
 	    bAlphabetsSubmit,    // button to finish editing the alphabet
@@ -39,8 +40,9 @@ AUTOMATON_CONTROLLER = (function (M) {
 	    bStep,               // button to execute a single step of the computation.
 	    bRun,                // button to execute the program till it reachs the final state (warning: possible infinte loop)
 	    bEditStates,         // button to leave execution mode and resume editing the program
+	    bSetQueue,           // button to set the input queue's content
 	    bSave,               // button to save the program
-	    bLoad;               // button to load the program
+	    lLoad;               // file input's label to load the program
 
 	// updateAlph (function to update the alphabet on interface during editing)
 	function updateAlph() {
@@ -77,7 +79,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 		    nStacks = M.getStackNumber(),
 		    nStates = states.length,
 		    queue = M.getQueue(),
-		    c_state = M.getCurrentState();
+		    c_state = M.getCurrentState(),
+		    next_rules = ((c_state >= 0) && states[c_state].nextRules()) || [],
 		    stateListHtml = [],
 		    statesDefHtml = [],
 		    stacksListHtml = [];
@@ -95,7 +98,11 @@ AUTOMATON_CONTROLLER = (function (M) {
 			}
 			stateListHtml.push('<ul class="rules"><h3>Rules</h3>');
 			for (j = 0; j < states[i].rules.length; j += 1) {
-				stateListHtml.push('<li>Π(q' + i.toString(10));
+				stateListHtml.push('<li');
+				if (i === c_state && -1 !== next_rules.indexOf(j)) {
+					stateListHtml.push(' class="next"');
+				}
+				stateListHtml.push('>Π(q' + i.toString(10));
 				s = states[i].rules[j].X;
 				if (s === EMPTY) { s = '?'; }
 				if (s === ε) { s = 'ε'; }
@@ -172,8 +179,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 	// updateStacks (function to update the stack&queue interface during editing and execution)
 	// params: [edit = false] : set as true to enable editing the queue content
 	function updateStacks() {
-		var i, j, stackListHtml = [], queue = M.getQueue(), stack, nStacks = M.getStackNumber();
-		stackListHtml.push('<li><h2>X</h2><ul class="queue">');
+		var i, stackListHtml = [], queue = M.getQueue(), stack, nStacks = M.getStackNumber();
+		stackListHtml.push('<li id="queue"><h2>X</h2><ul class="queue">');
 		for (i = 0; i < queue.length; i += 1) {
 			stackListHtml.push('<li class="symbol">' + queue[i] + '</li>');
 		}
@@ -186,9 +193,9 @@ AUTOMATON_CONTROLLER = (function (M) {
 			}
 			stackListHtml.push('</ul></li>');
 		}
-		if (!edit) {
-			stackListHtml.push('<br><input id="input_queue" type="text" placeholder="Set input queue"> <button type="button" id="set_queue">set</button>');
-		}
+		// if (!edit) {
+		// 	stackListHtml.push('<br><input id="input_queue" type="text" placeholder="Set input queue"> <button type="button" id="set_queue">set</button>');
+		// }
 		ulStacks.innerHTML = stackListHtml.join("");
 	}
 	function bAddAlphSym_onclick() {
@@ -261,12 +268,18 @@ AUTOMATON_CONTROLLER = (function (M) {
 	function addRule(src) {
 		var i, x, y = [], w = [], dest, nStacks = M.getStackNumber()
 		dest = parseInt(document.getElementById('q' + src.toString(10) + '_stateTo').value, 10);
+		// get the raw symbol
 		x = document.getElementById("q" + src.toString(10) + "_XRead").value;
+		// symbols startinh with 's'  are strings, anything else should be a integer constant
 		x = x[0] === 's' ? x.slice(1) : parseInt(x, 10);
 		for (i = 0; i < nStacks; i += 1) {
+			// get the raw symbol
 			y[i] = document.getElementById('q' + src.toString(10) + '_YRead_' + i.toString(10)).value;
+			// symbols startinh with 's'  are strings, anything else should be a integer constant
 			y[i] = y[i][0] === 's' ? y[i].slice(1) : parseInt(y[i], 10);
+			// get the raw symbol
 			w[i] = document.getElementById('q' + src.toString(10) + '_YWrite_' + i.toString(10)).value;
+			// symbols startinh with 's'  are strings, anything else should be a integer constant
 			w[i] = w[i][0] === 's' ? w[i].slice(1) : parseInt(w[i], 10);
 		}
 		try {
@@ -309,15 +322,12 @@ AUTOMATON_CONTROLLER = (function (M) {
 			}
 		}
 	}
-	function ulStacks_onclick (e) {
-		var elem, q;
-		e = e || event;
-		elem = e.target;
-		if (elem.id === "set_queue") {
-			q = document.getElementById("input_queue").value.split("");
-			M.setQueue(q);
-			updateStacks();
-		}
+	function bSetQueue_onclick () {
+		if (this.disabled) return;
+		var q = iQueue.value.split("");
+		M.setQueue(q);
+		updateStacks();
+		updateStates();
 	}
 	function bExecution_onclick () {
 		edit = false;
@@ -337,19 +347,29 @@ AUTOMATON_CONTROLLER = (function (M) {
 		switch (s) {
 			case FINAL:
 				alert('Word accepted / Computation complete');
+				M.resetExec();
+				updateStates();
+				updateStacks();
 				break;
 			case REJECT:
 				alert('Word rejected / Computation failed');
+				M.resetExec();
+				updateStates();
+				updateStacks();
 				break;
 		}
 	}
 	function bRun_onclick () {
 		if (confirm("If your program fall into a infinte loop, your browser might crash, are you sure?")) {
-			if (M.run()) {
+			var result = M.run();
+			updateStates();
+			updateStacks();
+			if (result) {
 				alert('Word accepted / Computation complete');
 			} else {
 				alert('Word rejected / Computation failed');
 			}
+			M.resetExec();
 			updateStates();
 			updateStacks();
 		}
@@ -366,8 +386,9 @@ AUTOMATON_CONTROLLER = (function (M) {
 		var saveData = M.save();
 		prompt("Copy the program data below and paste to a text file:", saveData);
 	}
-	function bLoad_onclick() {
-		var data = prompt("Paste the program data below:");
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		var data = e.target.result;
 		try {
 			M.restore(data);
 		}
@@ -388,13 +409,26 @@ AUTOMATON_CONTROLLER = (function (M) {
 		updateStacks();
 		switchScreen("execution");
 	}
+	function loadFile() {
+		var file = this.files[0];
+		reader.readAsText(file);
+	}
 	function switchScreen(screen) {
 		bSave.disabled = true;
+		bRun.disabled = true;
+		bStep.disabled = true;
+		bNewState.disabled = true;
+		//bInput_queue.disabled = true;
+		bEditStates.disabled = true;
+		bSetQueue.disabled = true;
+		iQueue.disabled = true;
+		console.log(iQueue);
+		console.log(bSetQueue);
 		stacksManagement.style.display    = "none";
 		alphabetsManagement.style.display = "none";
 		statesManagement.style.display    = "none";
-		editButtons.style.display         = "none";
-		executeButtons.style.display      = "none";
+		//editButtons.style.display         = "none";
+		//executeButtons.style.display      = "none";
 		switch (screen) {
 			case "stacks":
 				stacksManagement.style.display    = "block";
@@ -405,13 +439,20 @@ AUTOMATON_CONTROLLER = (function (M) {
 			case "states":
 				//ulStates.onclick = ulStates_onclick;
 				bSave.disabled = false;
-				editButtons.style.display         = "block";
+				bExecution.disabled = false;
+				bNewState.disabled = false;
+				//editButtons.style.display         = "block";
 				statesManagement.style.display    = "block";
 				break;
 			case "execution":
 				//ulStates.onclick = null;
 				bSave.disabled = false;
-				executeButtons.style.display      = "block";
+				bEditStates.disabled = false;
+				bRun.disabled = false;
+				bStep.disabled = false;
+				bSetQueue.disabled = false;
+				iQueue.disabled = false;
+				//executeButtons.style.display      = "block";
 				statesManagement.style.display    = "block";
 				break;
 		}
@@ -431,11 +472,13 @@ AUTOMATON_CONTROLLER = (function (M) {
 			iAlphSym         = document.getElementById("input_alphabet_symbol");
 			iAuxAlphSym      = document.getElementById("input_aux_alphabet_symbol");
 			iStacksNumber    = document.getElementById("stacks_number");
+			iQueue           = document.getElementById("input_queue");
 			bAddAlphSym      = document.getElementById("add_alphabet");
 			bAddAuxAlphSym   = document.getElementById("add_aux_alphabet");
 			bStacksNumber    = document.getElementById("set_stacks_number");
 			bAlphabetsSubmit = document.getElementById("alphabets_submit");
 			bNewState        = document.getElementById("new_state");
+			bSetQueue        = document.getElementById("set_queue");
 			ulStates         = document.getElementById("state_list");
 			ulStacks         = document.getElementById("queuestacks_list");
 			bExecution       = document.getElementById("goto_execution");
@@ -445,7 +488,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 			executeButtons   = document.getElementById("execute_buttons");
 			bEditStates      = document.getElementById("edit_states");
 			bSave            = document.getElementById("save");
-			bLoad            = document.getElementById("load");
+			lLoad            = document.getElementById("load");
 			// SET INTERFACE HANDLERS
 			switchScreen("stacks");
 			bAddAlphSym.onclick      = bAddAlphSym_onclick;
@@ -455,14 +498,14 @@ AUTOMATON_CONTROLLER = (function (M) {
 			bStacksNumber.onclick    = bStackNumber_onclick;
 			bAlphabetsSubmit.onclick = bAlphabetsSubmit_onclick;
 			bNewState.onclick        = bNewState_onclick;
+			bSetQueue.onclick        = bSetQueue_onclick;
 			ulStates.onclick         = ulStates_onclick;
-			ulStacks.onclick         = ulStacks_onclick;
 			bExecution.onclick       = bExecution_onclick;
 			bStep.onclick            = bStep_onclick;
 			bRun.onclick             = bRun_onclick;
 			bEditStates.onclick      = bEditStates_onclick;
 			bSave.onclick            = bSave_onclick;
-			bLoad.onclick             = bLoad_onclick;
+			lLoad.control.onchange   = loadFile;
 		}
 	};
 }(AUTOMATON_MODEL));

@@ -1,87 +1,52 @@
-* {
-	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
-}
 body {
-	background: #E4EFE4;
-	color: #121;
+	background: #222;
+	color: #b0b9c0;
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
 }
-header {
-	background: #ACA;
-	color: #121;
+* {
+	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+}
+header#machine_definitions {
+	background: #000;
 	padding: 15px;
 	height: 90px;
-	position: relative;
 }
-header #execute_buttons {
-	font-size: 16px;
-	text-align: right;
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	width: 140px;
-}
-header #edit_buttons {
-	font-size: 16px;
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	width: 140px;
-}
-#save_load {
-	font-size: 18px;
-	text-align: right;
-	padding: 5px;
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
-	z-index: 15;
-}
-header button {
-	margin: 2px 0px;
-}
-header #definitions {
-	position: absolute;
-	top: 10px;
-	bottom: 0px;
-	left: 150px;
-	right: 150px;
-}
-header #definitions h1 {
+header#machine_definitions h1 {
 	font-size: 1.2em;
 	margin: 0;
 	padding: 0;
 }
-header #definitions ul {
+header#machine_definitions ul {
 	list-style: none;
 	display: block;
+	background: #000;
 	margin: 0px;
 	padding: 0px;
 }
-header #definitions ul.definitions {
+header ul.definitions {
 	display: inline-block;
 	float: left;
 	width: 50%;
 }
-header #definitions ul.definitions li {
+header ul.definitions li {
 	display: block;
 	margin: 0;
 	padding: 0;
 }
 section#content {
+	padding: 10px;
 	position: absolute;
 	top: 120px;
 	bottom: 75px;
 	left: 0;
 	right: 0;
 	overflow: auto;
-	padding: 10px;
 }
 footer {
-	background: #aca;
-	color: #464;
+	background: #191919;
+	color: #666;
 	font-size: 0.8em;
 	text-align: center;
 	padding: 5px;
@@ -95,48 +60,42 @@ footer p {
 	margin: 5px;
 }
 footer a {
-	border-bottom: 0px dashed #363;
-	color: #363;
+	border-bottom: 1px dashed #eee;
+	color: #aaa;
 	text-decoration: none;
 }
 input {
-	background: #ccc;
-	border: 0px solid #000;
+	background: #BBB;
+	border: 0px none;
 	border-radius: 4px;
 	color: #000;
 	font-size: 1em;
 	margin: 0;
-	padding: 2px 1px;
+	padding: 2px 3px;
 }
 button {
-	background: #6a6;
-	border: 0px solid #020;
-	color: #020;
+	background: #1E5910;
+	color: #99D18E;
+	border: 0px none;
 	border-radius: 4px;
 	font-size: 1em;
 	margin: 0;
-	padding: 2px 2px;
+	padding: 1px 2px;
 }
 button[disabled] {
-	border: 0px solid #020;
-	background: #a0a0a0;
-	color: #666;
+	background: #202020;
+	color: #777;
 }
 select {
-	background: #aaa;
-	border: 0px solid #020;
+	background: #444;
+	border: 0px none;
 	border-radius: 3px;
-	color: #222;
+	color: #ddd;
 	font-size: 1em;
-	padding: 0px 1px;
 }
 button.delete {	
 	background: #56100F;
 	color: #CE8D8C;
-	text-align: center;
-	width: 15px;
-	margin: 0;
-	padding: 0;
 }
 #stacks_management {
 	font-size: 25px;
@@ -147,19 +106,19 @@ input#stacks_number {
 }
 ul#queuestacks_list {
 	display: block;
-	vertical-align: top;
+	float: right;
 	list-style: none;
 	margin: 5px;
 	padding: 0;
 }
 ul#queuestacks_list > li,
 #alphabets_management {
-	border: 1px solid #AAA;
+	border: 1px solid #666;
 	display: block;
 	text-align: center;
 	position: relative;
 	width: 200px;
-	margin: 0 auto;
+	margin: 10px auto;
 	padding: 0px;
 }
 ul#queuestacks_list > li {
@@ -181,10 +140,10 @@ button#alphabets_submit {
 	margin: 6px;
 }
 #alphabets_management .alphabet_box.primary {
-	background: #E0EBE0;
+	background: #1a1a1a;
 }
 #alphabets_management .alphabet_box.auxiliar {
-	background: #E0E0E0;
+	background: #1e1e1e;
 	left: 100px;
 }
 h2 {
@@ -198,7 +157,7 @@ h3 {
 }
 ul#queuestacks_list h2,
 #alphabets_management h2 {
-	background: #BDB;
+	background: #111;
 	padding: 5px 0px;
 }
 #alphabets_management h3 {
@@ -215,19 +174,9 @@ input[type="number"] {
 #alphabets_management .alphabet_box button {
 	line-height: inherit;
 }
-ul#queuestacks_list {
-	width: 400px;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	right: 0px;
-	overflow: auto;
-	padding: 5px;
-}
 ul#queuestacks_list > li > ul,
 #alphabets_management .alphabet_box ul {
-	display: block;
-	border: 1px solid #aaa;
+	border: 1px solid #333;
 	list-style: none;
 	margin: 5px;
 	padding: 3px 15px;
@@ -236,24 +185,23 @@ ul#queuestacks_list > li > ul,
 }
 ul#queuestacks_list > li > ul > li,
 #alphabets_management .alphabet_box > ul > li {
-	display: block;
-	background: #B9B9B9;
+	background: #2a2a2a;
 	font-weight: bold;
 	margin: 2px 0;
 }
 ul#queuestacks_list > li > ul > li:nth-child(1) {
-	background: #40a040;
+	background: #1a3a1a;
 }
 #alphabets_management .alphabet_box ul li:hover {
-	background: #c66;
-	color: #411;
+	background: #6B1313;
+	color: #F29D9D;
 	text-decoration: line-through;
 	font-weight: normal;
 }
 #states_management {
 	padding: 10px;
 	position: absolute;
-	top: 0px;
+	top: 35px;
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
@@ -264,32 +212,38 @@ ul#state_list {
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
-	top: 35px;
+	top: 0px;
 	bottom: 0px;
 	left: 0px;
 	right: 410px;
 	overflow: auto;
 	padding: 5px;
 }
+ul#queuestacks_list {
+	width: 400px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	overflow: auto;
+	padding: 5px;
+}
 ul#state_list > li.state {
-	background: #ccc;
-	border: 4px solid #ccc;
+	background: #111;
+	border: 2px solid #111;
 	display: block;
 	float: left;
 	position: relative;
 	margin: 3px;
-	padding: 2px;
-}
-ul#state_list > li.state.current {
-	border: 4px solid #575;
-}
-ul#state_list > li.state h2 {
-	background: #ddd;
-	float: left;
 	padding: 3px;
 }
-ul#state_list > li.state h3 {
-	font-size: 1.1em;
+ul#state_list > li.state.current {
+	border: 2px solid #fff;
+}
+ul#state_list > li.state h2 {
+	background: #080808;
+	float: left;
+	padding: 3px;
 }
 ul#state_list > li.state > button.delete {
 	position: absolute;
@@ -303,34 +257,27 @@ ul#state_list > li.state ul.rules {
 	padding: 0;
 }
 ul#state_list > li.state ul.rules > li {
-	background: #e8e8e8;
+	background: #191919;
 	display: block;
 	margin: 2px 5px;
-	padding: 3px 23px 3px 3px;
-	position: relative;
-}
-ul#state_list > li.state ul.rules > li button.delete {
-	position: absolute;
-	top: 1px;
-	right: 3px;
-}
-ul#state_list > li.state ul.rules > li.next {
-	background: #78e878;
-}
-ul#state_list > li.state .new_rule {
-	background: #eee;
-	clear: both;
-	margin-top: 5px;
 	padding: 3px;
 }
-.state button {
-	margin: 2px 0;
+ul#state_list > li.state .new_rule {
+	background: #080808;
+	clear: both;
+	margin-top: 20px;
+	padding: 3px;
 }
 ul#state_list > li#qf {
-	border: 5px solid #ccc;
+	border: 5px solid #000;
+	border: 5px solid #000;
 	margin: 20px;
-	padding: 5px;
+	padding: 10px;
 }
 ul#state_list > li#qf.current {
-	border: 5px solid #272;
+	border: 5px solid #0a0;
+}
+#goto_execution,
+#edit_states {
+	float: right;
 }

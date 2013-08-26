@@ -19,39 +19,34 @@
 <head>
 	<meta charset="utf-8">
 	<title>Pushdown Automaton</title>
-	<link rel="stylesheet" type="text/css" media="Screen" href="css/automaton.css"> <!-- desktop -->
-	<link rel="stylesheet" type="text/css" media="handheld" href="css/automaton-mobile.css"> <!-- mobile -->
+	<link rel="stylesheet" type="text/css" href="automaton.css">
 </head>
 <body>
 	<!-- HTML Interface (View) -->
 	<header id="machine_definitions">
-		<section id="save_load">
-			<button type="button" id="save">save</button>
-			<label id="load">load<input type="file" hidden /></label>
-		</section>
-		<section id="definitions">
-			<h1>Definitions</h1>
-			<ul class="definitions">
-				<li>M = {Σ, Q, Π, q<sub id="initial_state">0</sub>, F, V}</li>
-				<li>Σ = {<span id="alphabet"></span>}</li>
-				<li>V = {<span id="aux_alphabet"></span>}</li>
-			</ul><ul class="definitions">
-				<li>Q = {<span id="states"></span>}</li>
-				<li>F = {q<sub>f</sub>}</li>
-			</ul>
-		</section>
-		<section id="edit_buttons">
-			<button type="button" id="edit_states">edit states</button><br>
-			<button type="button" id="new_state">new state</button>
-		</section>
-		<section id="execute_buttons">
-			<button type="button" id="goto_execution">execute</button><br>
-			<button type="button" id="run_step">step</button>
-			<button type="button" id="run_all">run</button>
-		</section>
+		<h1>Definitions</h1>
+		<ul class="definitions">
+			<li>M = {Σ, Q, Π, q<sub id="initial_state">0</sub>, F, V}</li>
+			<li>Σ = {<span id="alphabet"></span>}</li>
+			<li>V = {<span id="aux_alphabet"></span>}</li>
+		</ul><ul class="definitions">
+			<li>Q = {<span id="states"></span>}</li>
+			<li>F = {q<sub>f</sub>}</li>
+		</ul>
+		<button type="button" id="save">save</button>
+		<button type="button" id="load">load</button>
 		<br style="clear: both;">
 	</header>
 	<section id="content">
+		<div id="edit_buttons">
+			<button type="button" id="goto_execution">execute</button>
+			<button type="button" id="new_state">new state</button>
+		</div>
+		<div id="execute_buttons">
+			<button type="button" id="edit_states">edit states</button>
+			<button type="button" id="run_step">step</button>
+			<button type="button" id="run_all">execute all</button>
+		</div>
 		<div id="stacks_management">
 			Stacks number: <input type="number" id="stacks_number" value="2">
 			<button type="button" id="set_stacks_number">set</button>
@@ -74,11 +69,8 @@
 			<br style="clear: both;">
 			<button type="button" id="alphabets_submit">next</button>
 		</div>
+		
 		<div id="states_management">
-			<div id="queue_management">
-				<input id="input_queue" type="text" placeholder="Set input queue">
-				<button type="button" id="set_queue">set</button>
-			</div>
 			<ul id="queuestacks_list">
 			</ul>
 			<ul id="state_list">
@@ -87,12 +79,12 @@
 		<br style="clear: both;">
 	</section>
 	<footer>
-		<p>PushdownAutomatonJs 1.0b</p>
+		<p>PushdownAutomatonJs 0.7</p>
 		<p>Developed by <a href="http://inf.ufrgs.br/~aleuck/" target="_blank">Alexandre Leuck</a> @ <a href="http://www.ufrgs.br/" target="_blank">UFRGS</a></p>
 		<p>Licensed under <a href="http://www.gnu.org/licenses/" target="_blank">GPLv3</a></p>
 	</footer>
-	<script src="js/automatonModel.js"></script><!-- model -->
-	<script src="js/automatonController.js"></script><!-- controler -->
+	<script src="automatonModel.js"></script><!-- model -->
+	<script src="automatonController.js"></script><!-- controler -->
 	<script>
 		AUTOMATON_CONTROLLER.init();
 	</script>

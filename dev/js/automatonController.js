@@ -179,8 +179,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 	// updateStacks (function to update the stack&queue interface during editing and execution)
 	// params: [edit = false] : set as true to enable editing the queue content
 	function updateStacks() {
-		var i, j, stackListHtml = [], queue = M.getQueue(), stack, nStacks = M.getStackNumber();
-		stackListHtml.push('<li><h2>X</h2><ul class="queue">');
+		var i, stackListHtml = [], queue = M.getQueue(), stack, nStacks = M.getStackNumber();
+		stackListHtml.push('<li id="queue"><h2>X</h2><ul class="queue">');
 		for (i = 0; i < queue.length; i += 1) {
 			stackListHtml.push('<li class="symbol">' + queue[i] + '</li>');
 		}
@@ -361,7 +361,10 @@ AUTOMATON_CONTROLLER = (function (M) {
 	}
 	function bRun_onclick () {
 		if (confirm("If your program fall into a infinte loop, your browser might crash, are you sure?")) {
-			if (M.run()) {
+			var result = M.run();
+			updateStates();
+			updateStacks();
+			if (result) {
 				alert('Word accepted / Computation complete');
 			} else {
 				alert('Word rejected / Computation failed');

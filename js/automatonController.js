@@ -420,6 +420,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 		bNewState.disabled = true;
 		//bInput_queue.disabled = true;
 		bEditStates.disabled = true;
+		bExecution.disabled = true;
 		bSetQueue.disabled = true;
 		iQueue.disabled = true;
 		console.log(iQueue);

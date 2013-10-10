@@ -383,8 +383,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 		switchScreen("states")
 	}
 	function bSave_onclick () {
-		var saveData = M.save();
-		prompt("Copy the program data below and paste to a text file:", saveData);
+		saveAs(new Blob([M.save()], {type: "application/json;charset=utf-8"}), "program.json");
 	}
 	var reader = new FileReader();
 	reader.onload = function (e) {
@@ -420,6 +419,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 		bNewState.disabled = true;
 		//bInput_queue.disabled = true;
 		bEditStates.disabled = true;
+		bExecution.disabled = true;
 		bSetQueue.disabled = true;
 		iQueue.disabled = true;
 		console.log(iQueue);

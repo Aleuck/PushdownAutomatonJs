@@ -336,8 +336,8 @@ AUTOMATON_CONTROLLER = (function (M) {
 		switchScreen('execution');
 	}
 	function bStep_onclick() {
-		var s, c = M.getCurrentState();
-		if (c >= 0) {
+		var s = M.getCurrentState();
+		if (s >= 0) {
 			s = M.step();
 		} else {
 			M.resetExec();
@@ -360,19 +360,42 @@ AUTOMATON_CONTROLLER = (function (M) {
 		}
 	}
 	function bRun_onclick () {
-		if (confirm("If your program fall into a infinte loop, your browser might crash, are you sure?")) {
-			var result = M.run();
-			updateStates();
-			updateStacks();
-			if (result) {
-				alert('Word accepted / Computation complete');
-			} else {
-				alert('Word rejected / Computation failed');
-			}
-			M.resetExec();
-			updateStates();
-			updateStacks();
+		var s = M.getCurrentState(), stop=false;
+		bRun.style.display = "none";
+		bStop.style.display = "inline-block"
+		bStop.onclick = function () {
+			stop = true;
+			bRun.style.display = "inline-block"
+			bStop.style.display = "none";
+			this.onclick = null;
 		}
+		function step() {
+			if (s >= 0 && !stop) {
+				s = M.step();
+			}
+			updateStates();
+			updateStacks();
+			if (s >= 0 && !stop) {
+				setTimeout(step, 250);
+			} else {
+				switch (s) {
+					case FINAL:
+						alert('Word accepted / Computation complete');
+						M.resetExec();
+						updateStates();
+						updateStacks();
+						break;
+					case REJECT:
+						alert('Word rejected / Computation failed');
+						M.resetExec();
+						updateStates();
+						updateStacks();
+						break
+				}
+				bStop.onclick();
+			}
+		}
+		setTimeout(step, 250);
 	}
 	function bEditStates_onclick () {
 		edit = true;
@@ -427,6 +450,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 		stacksManagement.style.display    = "none";
 		alphabetsManagement.style.display = "none";
 		statesManagement.style.display    = "none";
+		bStop.style.display               = "none";
 		//editButtons.style.display         = "none";
 		//executeButtons.style.display      = "none";
 		switch (screen) {
@@ -484,6 +508,7 @@ AUTOMATON_CONTROLLER = (function (M) {
 			bExecution       = document.getElementById("goto_execution");
 			bStep            = document.getElementById("run_step");
 			bRun             = document.getElementById("run_all");
+			bStop             = document.getElementById("stop");
 			editButtons      = document.getElementById("edit_buttons");
 			executeButtons   = document.getElementById("execute_buttons");
 			bEditStates      = document.getElementById("edit_states");

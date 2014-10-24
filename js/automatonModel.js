@@ -86,7 +86,8 @@ var AUTOMATON_MODEL = (function () {
 			prev_q = q;
 			q = Q[q].execute();
 		}
-		return (q === -1);
+		// return true if the final state is reached (computation succeded)
+		return (q === FINAL);
 	}
 	// execute a single step in computation
 	function step() {
@@ -214,6 +215,9 @@ var AUTOMATON_MODEL = (function () {
 		}
 	};
 	function removeState (index) {
+		if ("number" !== typeof index) {
+			throw new Error("Expecting number instead of " + (typeof index));
+		}
 		var i, j;
 		for (i = 0; i < Q.length; i += 1) {
 			if (i !== index) {

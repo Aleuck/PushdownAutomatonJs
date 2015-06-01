@@ -194,6 +194,11 @@ var AUTOMATON_MODEL = (function () {
 				// if the write rule is defined use it "w[i]", otherwise, use ε
 				n_rule.W[i] = (w && w[i]) || ε;
 			}
+			if (n_rule.X === ε && n_rule.Y.every(function (y) { return (y === ε) })) {
+				this.rules.pop();
+				throw new Error("Rule can't be fully generic.");
+				return;
+			}
 			for (i = 0; i < ruleIdx; i += 1) {
 				e_rule = this.rules[i];
 				if (e_rule.X !== ε && n_rule.X !== ε && e_rule.X !== n_rule.X) continue;

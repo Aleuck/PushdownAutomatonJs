@@ -17,7 +17,7 @@
 // Interface singleton (Controller)
 AUTOMATON_CONTROLLER = (function (M) {
 	var maxStackCount = 10,  // max number of stacks allowed
-		edit = true,         // is user is editing the states // false when executing
+	    edit = true,         // is user is editing the states // false when executing
 	    stacksManagement,    // screen to choose the number of stacks
 	    alphabetsManagement, // screen to set the alphabets symbols
 	    statesManagement,    // screen to set the states

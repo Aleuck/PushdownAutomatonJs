@@ -6,25 +6,32 @@ Also supports multiple stacks (turing complete), a single stack (context-free la
 
 Definitions
 -----------
-`M = {Σ, Q, Π, q0, F, V}`<br>
-Where:<br>
-`M` := Machine<br>
-`Σ` := Alphabet<br>
-`Q` := States set<br>
-`Π` := Program function<br>
-`q0` := Initial state (`q0 ∈ Q`)<br>
-`F` := Final states<br>
-`V` := Auxiliary alphabet
 
-The program function for a machine with n stacks is as folow:<br>
-  `Π(cq, rq, rs1, ..., rsn) = (nq, ws1, ..., wsn)`
+### Machine definition
+<code>M = {Σ, Q, Π, q<sub>0</sub>, F, V}</code>
 
 Where:<br>
-  `cq` := Current state<br>
-  `rq` := symbol read from the queue<br>
-  `rsi` := symbol read (popped) from the ith stack<br>
-  `nq` := Next state<br>
-  `wsi` := symbol written (pushed) to the ith stack
+<code>M </code> := Machine<br>
+<code>Σ </code> := Alphabet<br>
+<code>Q </code> := States set<br>
+<code>Π </code> := Program function<br>
+<code>q<sub>0</sub></code> := Initial state (<code>q<sub>0</sub> ∈ Q</code>)<br>
+<code>F </code> := Final states<br>
+<code>V </code> := Auxiliary alphabet<br>
+
+### Program function definition
+  <code>Π(q<sub>a</sub>, r, p<sub>1</sub>, ..., p<sub>n</sub>) = (q<sub>b</sub>, w<sub>1</sub>, ..., w<sub>n</sub>)</code>
+
+Where:<br />
+<code>q<sub>a</sub></code> := Current state (<code>q<sub>a</sub> ∈ Q</code>)
+<br />
+<code>q<sub>b</sub></code> := Next state (<code>q<sub>b</sub> ∈ Q</code>)
+<br />
+<code>r </code> := symbol read from the queue (<code>r ∈ Σ</code>)
+<br />
+<code>p<sub>i</sub></code> := symbol read (popped) from the i<sup>th</sup> stack (<code>r ∈ Σ</code>)
+<br />
+<code>w<sub>j</sub></code> := symbol written (pushed) to the j<sup>th</sup> stack (<code>w ∈ Σ ∪ V</code>)
 
 Try it online
 -------------

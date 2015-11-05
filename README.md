@@ -24,3 +24,5 @@ Where:<br>
   `rsi` := symbol read (popped) from the ith stack<br>
   `nq` := Next state<br>
   `wsi` := symbol written (pushed) to the ith stack
+
+![Screenshot](https://dl.dropboxusercontent.com/u/11043442/screenshot-pushdown_automaton.png)
